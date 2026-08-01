@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "libqc"
+version = "0.0.1"
+dependencies = [
+  "numpy",
+  "scipy",
+  "torch",
+  "matplotlib",
+  "plotly",
+  "tqdm",
+  "tomli_w",
+  "pyqtgraph",
+  "pyside6",
+  "h5py"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["libqc"]
+
