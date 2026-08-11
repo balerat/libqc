@@ -79,3 +79,15 @@ def square_potential_general(x, y, params):
 
     return V_x + V_y
 
+
+def create_grid_periodic(p: int, dx: float):
+    L = float(p)
+    n_float = L / dx
+    n = int(round(n_float))
+    if abs(n_float - n) > 1e-9:
+        raise ValueError(f"dx={dx} does not divide box L=p={p} evenly (n={n_float})")
+    dx = L / n  # re-snap exactly in case of float drift
+    coord = (np.arange(n) - n // 2) * dx
+    x, y = np.meshgrid(coord, coord)
+    return x.astype(type), y.astype(type), dx, n
+
