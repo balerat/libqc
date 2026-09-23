@@ -1,19 +1,3 @@
-"""Loaders for experimental shots and pre-computed theory results.
-
-Two families:
-
-* **Experiment** — :func:`load_shots` reads a folder of ``.hdf5`` shots into
-  image stacks (one per ROI) plus the requested run parameters.
-  :func:`loadData` is the old 15-argument interface, kept as a thin wrapper.
-* **Theory** — ``load_ssfm*`` (split-step results), ``load_theo_wannier`` /
-  ``load_fitted_wannier`` (Wannier templates and fits), ``load_hamiltonian``
-  / ``load_uiiii_param`` (Hubbard parameters), :func:`load_phases`.
-
-Format contract: ``load_ssfm`` / ``load_ssfm_dir`` read the pickled-dict
-``out_imgt.npy`` files written by :func:`libmbqd.ssfm.io.save_imgt_result`
-(keys: times, energy, kinetic, potential, inter, final_state, density).
-"""
-
 import copy
 import pickle
 from pathlib import Path

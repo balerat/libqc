@@ -1,3 +1,4 @@
+"""Unit rescaling helpers (scale-factor based, not dimensional analysis)."""
 #A simple replacement for ufloat for versions of python where it becomes difficult to install and have working
 #Note that this doesn't work nicely for dBm so be careful with that
 

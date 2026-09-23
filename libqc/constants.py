@@ -1,26 +1,8 @@
-
-"""Physical and experimental constants for the quasicrystal experiment.
-
-Everything is SI unless the name says otherwise. Species-independent
-constants only — atom data lives in :mod:`libmbqd.species`, and
-simulation-parameter bundles (g_2d, recoil units, ...) in
-:class:`libmbqd.ssfm.GPEParams`.
-
-Note there are two distinct camera pixel pitches:
-
-* ``PIXELPITCH_QGM`` — quantum-gas-magnifier imaging camera (13/6 um),
-  demagnified by the x50 magnifier into ``QGMPITCH``.
-* ``PIXELPITCH_TOF`` — time-of-flight imaging camera (13/2 um), combined
-  with ``TOF`` and ``TOF_MAG`` into the momentum calibration ``DK_TOF``.
-"""
-
 import numpy as np
 from scipy.constants import atomic_mass, hbar, pi
 
 PI = pi
 HBAR = hbar
-
-
 
 # --- lattice ---
 WAVELENGTH = 726e-9                       # lattice beam wavelength [m]

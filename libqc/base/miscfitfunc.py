@@ -29,7 +29,8 @@ def double_lorentz(x, *p):
     gamma1, w1, A1, gamma2, w2, A2, off= p
     return off + A1/((x-w1)**2+(0.5*gamma1)**2) + A2/((x-w2)**2+(0.5*gamma2)**2)
 
-def parabola(t, *p):
+def parabola_kinematic(t, *p):
+    """0.5*a*t^2 + v*t + c (was shadowed by the vertex-form parabola below)."""
     a, v, c = p
     return 0.5*a*t**2 + v*t + c
 
