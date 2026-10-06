@@ -122,7 +122,7 @@ class Shot():
                     log.error('Unable to calculate OD frame: {0}'.format(e))
             target = next((f for f in self.frame_list\
                         if f.frametype == frametype), self.frame_list[0])
-            if (do_dark_subtract and target.frametype is 'MOT'):
+            if (do_dark_subtract and target.frametype == 'MOT'):  # CHANGED: 'is' -> '=='
                 darkframe = next((f for f in self.frame_list\
                         if (f.frametype == 'dark' and f.camera == target.camera)), None)
                 return subtract_dark(target, darkframe)
@@ -134,18 +134,9 @@ class Shot():
     def _open_file(self):
         '''Given the name and directory of hdf, open one hdf5 file
         store it as self.hdffile'''
+        # CHANGED: open read-only, never modify raw data
         try:
-            self.hdffile = File(self._path, 'r+')
-        except IOError as e:
-            log.warning(e)
-            # Try read-only
-            try:
-                log.warning('Trying to open hdf read-only')
-                self.hdffile = File(self._path, 'r')
-            except Exception as e3:
-                log.error('Unable to open {0}: {1}'.format(self._path, e3))
-                self.hdffile = None
-                raise
+            self.hdffile = File(self._path, 'r')
         except Exception as e2:
             log.error('Unable to open {0}: {1}'.format(self._path, e2))
             self.hdffile = None
@@ -291,10 +282,12 @@ class Shot():
             mypath = '/' + temp.camera.hdfpath + temp.camera.name +'/'+ \
                     'OD_' + temp.species.name
             #print(mypath)
-            # if od frame exists (shouldn't), remove it:
-            if self.hdffile.__contains__(mypath):
-                del self.hdffile[mypath]
-            self.hdffile.create_dataset(mypath, data=temp.imagearray)
+            # CHANGED: only cache the OD frame in the file if it is writable
+            if self.hdffile.mode == 'r+':
+                # if od frame exists (shouldn't), remove it:
+                if self.hdffile.__contains__(mypath):
+                    del self.hdffile[mypath]
+                self.hdffile.create_dataset(mypath, data=temp.imagearray)
             #log.debug('Successfully saved OD frame')
         else:
             #log.debug('Found OD image in list of frames')
