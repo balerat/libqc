@@ -1,4 +1,8 @@
+from pathlib import Path
+from datetime import datetime
+
 import numpy as np
+import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 
 colors = {
@@ -75,5 +79,11 @@ def draw_bz_full(ax, hs, x_min, x_max, y_min, y_max):
         ax.plot(line[:0], line[:1], c="k", lw=1.5)
 
 
+def save_fig(path: str, name: str):
+    now = datetime.now()
+    timestamp = now.strftime("%Y-%m-%d-%Hh%M-")
+    parent_folder = now.strftime("%Y-%m-%d")
 
-
+    file = Path(path) / parent_folder / (timestamp + name)
+    file.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(file)
